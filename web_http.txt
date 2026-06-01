@@ -1,0 +1,15 @@
+web http
+dst host : httpforever.com
+
+web mp3 dan mkv hhtp
+path : *.mp3 http://www.hochmuth.com/mp3/haydn_cello_concerto_d-1.mp3
+     : *.mkv http://website.co.id/assets/video/sample.mkv
+
+konten kata "download"
+path : *download* http://www.httpwatch.com/download/
+
+
+redirect situs
+dst. host : web.simmons.edu
+action : denny
+redirect to : smkn1soreang.sch.id atau facebook.com
