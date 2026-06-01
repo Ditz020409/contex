@@ -1,0 +1,72 @@
+1. create CT
+2. ssh kie cmd ssh adit@172.16.51.201
+ - su -
+ - apt update && upgrade
+
+3. install webmin
+ - wget http://172.16.51.99/webmin_2.641_all.deb
+ - ls (cek apakah sudah ada di directory)
+ - dpkg -i webmin_2,641_all.deb
+ - apt install -f
+ - buka browser 172.15.51.201:10000
+ - masukan username:root dan password:admin
+ 
+4. Install LAMP PHP-FPM dan SSL
+ -buka cmd 
+ - paste
+   apt install apache2 mariadb-server php-fpm
+   a2enmod proxy_fcgi
+   a2enconf php8.4-fpm
+   systemctl restart apache2
+ -buka webmin
+   tools-file manager
+   var-www-html
+   buat file info.php
+     paste 
+     <?php phpinfo() ?>
+     save
+     buka browser lalu akses:
+      172.16.51.201/info.php
+ - aktifkan ssl apache
+    a2nmod ssl
+    mkdir ssl
+    cd ssl
+    paste
+      openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout -out self.crt
+
+    nano /etc/apache2/sites-available/default-ssl.conf
+    cari ssl certificate lalu ganti menjadi
+     
+            SSLCertificateFile      /root/ssl/self.crt
+            SSLcertificateKEyFile   /root/ssl/self.key
+
+    a2ensite default-ssl.conf
+    systemctl restart apache2
+    cek di browser
+     https://172.16.51.201 
+
+5. Install Prometheus dan Grafana
+ - apt install Prometheus prometheus-node-exsporter
+ - buka browser dan akses
+   172.16.51.201.:9090
+ -masuk menu status->target (pstikan kedua service UP
+
+ _cd ~
+ - wget http://172.16.51.99/grafana_13.0.1_24542347077_linux_amd64.deb
+ - ls
+ - dpkg -i grafana_13.0.1_24542347077_linux_amd64.deb
+ - systemctl start grafana-server
+ - buka browser dan akses 
+   172.16.51.201:3000
+ - username:admin password:admin
+ - main menu->connections->add new connetions
+   search : Prometheus  -> add new data source
+   name : Prometheus/adit
+   Prometheus server URL : http://172.16.51.201:9090/
+   save
+ - main menu -> dashboard 
+   new -> import 
+   find and import :1860 
+   load
+   import
+   selesai
