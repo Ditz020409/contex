@@ -16,7 +16,7 @@
  - paste
    apt install apache2 mariadb-server php-fpm
    a2enmod proxy_fcgi
-   a2enconf php8.4-form
+   a2enconf php8.4-fpm
    systemctl restart apache2
  -buka webmin
    tools-file manager
