@@ -4,7 +4,9 @@
  - apt update && upgrade
 
 3. install webmin
- - wget http://172.16.51.99/webmin_2.641_all.deb / https://download.webmin.dev/webmin_2.641.202606030737-1_all.deb
+ - wget http://172.16.51.99/webmin_2.641_all.deb 
+   atau
+    wget https://download.webmin.dev/webmin_2.641.202606030737-1_all.deb
  - ls (cek apakah sudah ada di directory)
  - dpkg -i webmin_2,641_all.deb
  - apt install -f
